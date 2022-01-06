@@ -28,6 +28,10 @@ let params = {
 //params.Key.stock_symbol="AAPL";
 console.log("Hosting on port: ",port);
 
+app.get('/', (request, response) => {
+    response.send("HELLO WORLD!");
+});
+
 app.get('/allStocks', (request, response) => {
     //response.send();
 });
