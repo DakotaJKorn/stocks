@@ -1,5 +1,5 @@
 const express = require('express');
-const req = require('express/lib/request');
+const request = require('express/lib/request');
 const AWS = require('aws-sdk');
 
 const app = express();
@@ -101,3 +101,7 @@ app.post("/createStock",(request,response)=> {
             }
     })
 })
+
+app.listen(port, () => {
+    console.log(`Example app listening at http://localhost:${port}`);
+});
