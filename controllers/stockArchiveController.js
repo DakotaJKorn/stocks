@@ -22,7 +22,7 @@ const addStockArchive = async (req, res) => {
 
 const getAllStockArchives = async (req, res) => {
 
-    // using the builtin 'findOne' function on Customer Model
+    // using the builtin 'findOne' function
     let stockArchives = await StockArchives.findAll({})
     res.status(200).send(stockArchives)
 }   

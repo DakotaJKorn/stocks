@@ -32,7 +32,7 @@ router.get('/', (request, response) => {
         } else {        
             console.log("Scan succeeded.");
             stocks.stock_array = data.Items;
-            response.status(200).send(stocks); 
+            response.status(200).send(stocks.stock_array); 
         }
     });
     
