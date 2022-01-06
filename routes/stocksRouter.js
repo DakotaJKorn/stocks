@@ -40,7 +40,7 @@ router.get('/', (request, response) => {
 
 // access all the customers in the table
 router.get('/stockArray/:stock_symbols_separated_by_commas', (request, response) => {
-    const array_of_stock_symbols = request.params["stock_symbols_separated_by_commas"].split(",");
+    const array_of_stock_symbols = request.params["stock_symbols_separated_by_commas"].toUpperCase().split(",");
 
     let stocks = {
         "stock_array":[],
