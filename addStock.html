@@ -8,12 +8,17 @@
     <script src="./index.js"></script>
 </head>
 <body>
-    <form action="localhost:3223/createStock" method="POST">
+    <form action="https://boiling-falls-79972.herokuapp.com/createStock" method="POST">
             <input type="text" name="stock_name" placeholder="Stock Name">
             <input type="text" name="stock_symbol" placeholder="Stock Symbol">
             <input type="text" name="stock_value" placeholder="Stock Value">
 
             <input type="submit" value="Create Stock"> 
 </form>
+
+<form action="https://boiling-falls-79972.herokuapp.com/AAPL" method="GET">
+    <input type="submit" value="Get Stock"> 
+</form>
+
 </body>
 </html>

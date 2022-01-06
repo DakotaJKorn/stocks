@@ -78,12 +78,7 @@ app.post("/createStock",(request,response)=> {
     let input = {
             "stock_name": body.stock_name,
             "stock_symbol": body.stock_symbol,
-            "stock_value": body.stock_value,
-            "stock_values_archive":{
-                "2022":{
-                    "January":"[0,0,0,0,0]"
-                }
-            }
+            "stock_value": body.stock_value
     };
     let params = {
             TableName: "Stocks",
