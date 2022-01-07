@@ -1,14 +1,13 @@
-// import the controller functions
 const stockArchiveController = require('../controllers/stockArchiveController')
-
-// create a Router object from express
 const router = require('express').Router()
 
-// add a new customer to the table
+
+// add a new archive to the database
 router.post('/', stockArchiveController.addStockArchive)
 
-// access all the customers in the table
+// access all of the archives in the database
 router.get('/', stockArchiveController.getAllStockArchives)
+
 
 // access one customer by id
 router.get('/:stock_symbol', stockArchiveController.getOneStockArchive)

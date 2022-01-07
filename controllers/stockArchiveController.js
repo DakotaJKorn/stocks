@@ -1,8 +1,5 @@
-// require the db created in the index file
 const { Stock_Archives } = require('../models/index')
 const db = require('../models/index')
-
-// get the customers model
 const StockArchives = db.Stock_Archives
 
 
@@ -21,11 +18,18 @@ const addStockArchive = async (req, res) => {
 }  
 
 const getAllStockArchives = async (req, res) => {
-
-    // using the builtin 'findOne' function
     let stockArchives = await StockArchives.findAll({})
     res.status(200).send(stockArchives)
 }   
+
+
+
+
+/* -------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+                             Not Functional
+----------------------------------------------------------------------------------
+---------------------------------------------------------------------------------*/
 
 const getOneStockArchive = async (req, res) => {
 
@@ -53,8 +57,6 @@ const deleteStockArchive = async (req, res) => {
     res.status(200).send(`stock archive with symbol: ${stock_symbol} is deleted`)
 }     
 
-
-// export all the controller functions
 module.exports = {
     addStockArchive,
     getAllStockArchives,

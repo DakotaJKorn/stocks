@@ -19,9 +19,9 @@ const sequelize = new Sequelize(
     // authenticate will test the connection with DB and return a promise
 sequelize.authenticate()
 .then(() => { // successfully connected to DB
-    console.log(`---------------------------------------`);
-    console.log(`-   Connected to Postgres Database    -`);
-    console.log(`---------------------------------------`);
+    console.log(`---------------------------------------`)
+    console.log(`-   Connected to Postgres Database    -`)
+    console.log(`---------------------------------------`)
 })
 .catch(e => {// failed connecting to DB
     console.log('unable to connect to Postgres DB' + e)
@@ -39,9 +39,9 @@ db.Stock_Archives = require('./stockArchiveModel')(sequelize, DataTypes)
 // sync the db by running the model
 // "force: false" ensures that the table is not created again every time the program runs
 db.sequelize.sync({ force: false }).then(() => {
-    console.log(`---------------------------------------`);
-    console.log(`-      DB synced with sequelize       -`);
-    console.log(`---------------------------------------`);
+    console.log(`---------------------------------------`)
+    console.log(`-      DB synced with sequelize       -`)
+    console.log(`---------------------------------------`)
 }).catch((error) => {
     console.log('Error syncing the DB to sequelize' + error)
 })
