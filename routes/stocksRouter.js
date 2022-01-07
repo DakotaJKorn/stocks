@@ -1,4 +1,3 @@
-// create a Router object from express
 const router = require('express').Router()
 const AWS = require('aws-sdk');
 
@@ -12,28 +11,15 @@ AWS.config.update(awsConfig);
 let docClient = new AWS.DynamoDB.DocumentClient();
 
 
-//params.Key.stock_symbol="AAPL";
 
-
-// access all the customers in the table
+// access all of the stocks in the database
 router.get('/', (request, response) => {
-    
-    let params = {
-        TableName: "Stocks"
-    };
 
-    let stocks = {
-        "stock_array":[]
-    }
-
-    docClient.scan(params, (err, data) => {
-        if (err) {
+    docClient.scan( { TableName:"Stocks" } , (err, data) => {
+        if (err)
             console.error("Unable to scan the table. Error JSON:", JSON.stringify(err, null, 2));
-        } else {        
-            console.log("Scan succeeded.");
-            stocks.stock_array = data.Items;
-            response.status(200).send(stocks.stock_array); 
-        }
+         else         
+            response.status(200).send(data.Items); 
     });
     
 });
@@ -118,76 +104,5 @@ router.get('/:stock_symbol', (request, response) => {
 
 
 
-
-/*
-app.get('/', (request, response) => {
-    response.send("HELLO WORLD!");
-});
-
-app.get('/allStocks', (request, response) => {
-    //
-});
-
-app.get('/allStocks/:date', (request, response) => {
-    //response.send();
-});
-
-app.get('/stock_symbol_array/:arrayOfStockSymbols', (request, response) => {
-    //response.send();
-});
-
-app.get('/stock_symbol_array/:arrayOfStockSymbols/:date', (request, response) => {
-    //response.send();
-});
-
-app.get('/:stock_symbol', (request, response) => {
-    params.Key.stock_symbol = request.params["stock_symbol"];
-
-    docClient.get(params, function(err,data){
-        if(err){
-                console.log("stock::get::error - " + JSON.stringify(err,null,2));
-                response.status(404).send("Oops! We couldn't find the stock you were searching for. Make sure you are entering the correct symbol of the stock.");
-        }
-        else{
-                console.log("stock::get::success");
-                response.status(200).send(data);
-        }
-})
-    //response.send();
-});
-
-app.get('/:stock_symbol/:date', (request, response) => {
-    const stock_symbol = request.params["stock_symbol"];
-    const date = request.params["date"];
-    //response.send();
-});
-
-
-
-app.post("/createStock",(request,response)=> {
-    let body = request.body;
-    console.log(body);
-    let input = {
-            "stock_name": body.stock_name,
-            "stock_symbol": body.stock_symbol,
-            "stock_value": body.stock_value
-    };
-    let params = {
-            TableName: "Stocks",
-            Item: input,
-    };
-
-    docClient.put(params, function(err,data){
-            if(err){
-                    console.log("stock::add::error - " + JSON.stringify(err,null,2));
-                    response.status(404).send("Oops! Stock could not be added to the database.");
-            }
-            else{
-                    console.log("stock::add::success");
-                    response.status(200).send("Great! Stock saved in dynamoDB");
-            }
-    })
-})
-*/
 
 module.exports = router
