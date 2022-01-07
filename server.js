@@ -12,10 +12,9 @@ app.use('/stockArchives', Router_Archives)
 const Router_Stocks = require('./routes/stocksRouter.js')
 app.use('/stocks', Router_Stocks)
 
-console.log("Hosting on port: ",port)
 
 app.listen(port, () => {
-    console.log(`---------------------------------------`)
-    console.log(`-     Express Server is listening     -`)
-    console.log(`---------------------------------------`)
+    console.log(`-----------------------------------------------`)
+    console.log(`- Express Server is listening on Port:  ${port}  -`)
+    console.log(`-----------------------------------------------`)
 })
