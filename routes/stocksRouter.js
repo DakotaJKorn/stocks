@@ -81,7 +81,7 @@ router.get('/stockArray/:stock_symbols_separated_by_commas', (request, response)
 
     setTimeout(function(){
         response.status(200).send(stocks); 
-    }, 1000);
+    }, 100);
     
 });
 
@@ -103,11 +103,14 @@ router.get('/:stock_symbol', (request, response) => {
     docClient.get(params, function(err,data){
         if(err){
                 console.log("stock::get::error - " + JSON.stringify(err,null,2));
-                response.status(404).send("Oops! We couldn't find the stock you were searching for. Make sure you are entering the correct symbol of the stock.");
         }
         else{
-                console.log("stock::get::success");
+                //console.log("stock::get::success");
                 stock = data.Item;
+
+                if(stock == null)
+                response.status(200).send("Error: Stock couldn't be found in database.");
+                else
                 response.status(200).send(stock);
         }
 })
