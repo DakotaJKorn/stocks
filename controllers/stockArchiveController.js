@@ -103,12 +103,10 @@ const getStockArchivesFromStockSymbolsAndDates = async (request, response) => {
         }
     }
 
-    if(returnObject.errors.length != 0)
-    response.status(200).send(returnObject)
-    else if(returnObject.stockArchives.length == 1)
+    if(returnObject.stockArchives.length == 1 && returnObject.errors.length == 0)
     response.status(200).send(returnObject.stockArchives[0])
     else
-    response.status(200).send(returnObject.stockArchives)
+    response.status(200).send(returnObject)
 } 
 
 module.exports = {

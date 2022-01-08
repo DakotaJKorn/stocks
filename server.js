@@ -8,9 +8,9 @@ app.use(express.json())
 
 
 const Router_Archives = require('./routes/stockArchivesRouter.js')
-app.use('/stockArchives', Router_Archives)
+app.use('/archives', Router_Archives)
 const Router_Stocks = require('./routes/stocksRouter.js')
-app.use('/stocks', Router_Stocks)
+app.use('/current', Router_Stocks)
 
 
 app.listen(port, () => {
