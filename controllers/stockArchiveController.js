@@ -44,6 +44,33 @@ const getAllStockArchivesFromStockSymbolOrDate = async (request, response) => {
     response.status(200).send(stockArchives)
 } 
 
+const getAllStockArchivesFromStockSymbols = async (request, response) => {
+
+    const array_of_stock_symbols = request.params["stock_symbols_separated_by_commas"].toUpperCase().split(",")
+
+
+    let returnObject = {
+        stockArchives:  [],
+        errors: []
+    }
+
+    for(let stock_symbol of array_of_stock_symbols){
+            let archive = await StockArchivesTable.findAll({where: {stock_symbol: stock_symbol}})
+            if(archive.length == 0)
+            returnObject.errors.push(`Error: Could not find an archive of ${stock_symbol}`)
+            else{
+                for(let stock_archive of archive)
+                returnObject.stockArchives.push(stock_archive)
+            }
+    }
+
+    if(returnObject.errors.length != 0)
+    response.status(200).send(returnObject)
+    else if(returnObject.stockArchives.length == 1)
+    response.status(200).send(returnObject.stockArchives[0])
+    else
+    response.status(200).send(returnObject.stockArchives)
+} 
 
 const getStockArchivesFromStockSymbolsAndDates = async (request, response) => {
 
@@ -84,50 +111,10 @@ const getStockArchivesFromStockSymbolsAndDates = async (request, response) => {
     response.status(200).send(returnObject.stockArchives)
 } 
 
- 
-/* -------------------------------------------------------------------------------
-----------------------------------------------------------------------------------
-                             Working On
-----------------------------------------------------------------------------------
----------------------------------------------------------------------------------*/
-
-
-
-
-/* -------------------------------------------------------------------------------
-----------------------------------------------------------------------------------
-                             Not Functional
-----------------------------------------------------------------------------------
----------------------------------------------------------------------------------*/
-//let stockArchive = await StockArchives.findOne({where: {stock_symbol: stock_symbol}})
-
-const getAllStockArchivesFromDate = async (request, response) => {
-
-    const date = request.params["date"].toUpperCase()
-
-    let stockArchives = await StockArchivesTable.findAll({where: {date: date}})
-    response.status(200).send(stockArchives)
-} 
-
-const updateStockArchive = async (req, res) => {
-    let stock_symbol = req.params.stock_symbol
-
-    // using the builtin 'update' function on Customer Model
-    const stockArchive = await StockArchives.update(req.body, { where: {stock_symbol: stock_symbol}})
-    res.status(200).send(stockArchive)
-}
-
-const deleteStockArchive = async (req, res) => {
-    let stock_symbol = req.params.stock_symbol
-
-    // using the builtin 'destroy' function on Customer Model
-    await StockArchives.destroy({where :{stock_symbol: stock_symbol}})
-    res.status(200).send(`stock archive with symbol: ${stock_symbol} is deleted`)
-}     
-
 module.exports = {
     addStockArchive,
     getAllStockArchives,
     getAllStockArchivesFromStockSymbolOrDate,
-    getStockArchivesFromStockSymbolsAndDates
+    getStockArchivesFromStockSymbolsAndDates,
+    getAllStockArchivesFromStockSymbols
 }
