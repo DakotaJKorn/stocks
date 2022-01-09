@@ -12,8 +12,8 @@ const getAllStocks = async (request, response) => {
 const getStockGroup = async (request, response) => {
     const array_of_stock_symbols = request.params["stock_symbols_separated_by_commas"].toUpperCase().split(",")
 
-    let stocks = {
-        "stock_array":[],
+    let returnObject = {
+        "stocks":[],
         "errors":[]
     }
 
@@ -24,21 +24,21 @@ const getStockGroup = async (request, response) => {
                     console.log("stock::get::error - " + JSON.stringify(err,null,2))
             else{
                     if(data.Item != null)
-                        stocks.stock_array.push(data.Item)
+                        returnObject.stocks.push(data.Item)
                     else
-                        stocks.errors.push({"stock_name":"", "stock_symbol":stock_symbol, "stock_value":""})
+                        returnObject.errors.push({"stock_name":"", "stock_symbol":stock_symbol, "stock_value":""})
             }
         })
 
     }
 
     setTimeout(() => {
-        if(stocks.stock_array.length == 1 && stocks.errors.length == 0)
-            response.status(200).send(stocks.stock_array[0])
-        else if(stocks.stock_array.length == 0 && stocks.errors.length == 1)
-            response.status(200).send(stocks.errors[0])
+        if(returnObject.stocks.length == 1 && returnObject.errors.length == 0)
+            response.status(200).send(returnObject.stocks[0])
+        else if(returnObject.stocks.length == 0 && returnObject.errors.length == 1)
+            response.status(200).send(returnObject.errors[0])
         else
-            response.status(200).send(stocks)
+            response.status(200).send(returnObject)
     }, 100)
     
 
