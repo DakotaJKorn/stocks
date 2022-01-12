@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
         stock_value:{
-            type: DataTypes.STRING,
+            type: DataTypes.DOUBLE,
             allowNull: false
         },
         date:{

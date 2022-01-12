@@ -9,7 +9,7 @@ app.use(express.json())
 
 const Router_Archives = require('./routes/stockArchivesRouter.js')
 app.use('/archives', Router_Archives)
-const Router_Stocks = require('./routes/stocksRouter.js')
+const Router_Stocks = require('./routes/stockCurrentRouter.js')
 app.use('/current', Router_Stocks)
 const Router_StockInfo = require('./routes/stockInfoRouter.js')
 app.use('/info', Router_StockInfo)
