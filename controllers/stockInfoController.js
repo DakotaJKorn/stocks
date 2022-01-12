@@ -40,9 +40,10 @@ const getStockGroup = async (request, response) => {
             if(stockInfo.length == 0)
                 returnObject.errors.push({"stock_symbol": stock_symbol})
             else{
-                    returnObject.stocks.push({"stock_symbol": stockInfo.stock_symbol,
+                    returnObject.stocks.push({
+                                       "stock_symbol": stockInfo.stock_symbol,
                                        "stock_name":stockInfo.stock_name, 
-                                       "stock_value": stock.stock_current,
+                                       "stock_value": stockInfo.stock_current,
                                        "stock_exchange":stockInfo.stock_exchange,
                                        "stock_sector": stockInfo.stock_sector,
                                        "stock_industry":stockInfo.stock_industry, 
