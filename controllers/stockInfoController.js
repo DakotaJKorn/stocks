@@ -5,7 +5,6 @@ const StockCurrentTable = db.Stock_Current
 
 const getAllStocks = async (request, response) => {
     let stocks = await StockInfoTable.findAll({include: [StockArchivesTable,StockCurrentTable]})
-    //console.log(stocks)
     let returnArray = new Array();
 
     for(let stock of stocks)
@@ -37,7 +36,7 @@ const getStockGroup = async (request, response) => {
 
     for(let stock_symbol of array_of_stock_symbols){
             let stockInfo = await StockInfoTable.findOne({where: {stock_symbol: stock_symbol}, include: [StockArchivesTable,StockCurrentTable]})
-            if(stockInfo.length == 0)
+            if(stockInfo == null)
                 returnObject.errors.push({"stock_symbol": stock_symbol})
             else{
                     returnObject.stocks.push({

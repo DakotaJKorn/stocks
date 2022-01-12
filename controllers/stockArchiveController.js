@@ -1,6 +1,5 @@
 const db = require('../models/index')
 const StockArchivesTable = db.Stock_Archives
-const StockTable = db.Stocks
 
 const addStockArchive = async (request, response) => {
 

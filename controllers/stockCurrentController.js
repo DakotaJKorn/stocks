@@ -1,11 +1,8 @@
 const db = require('../models/index')
-const StockArchivesTable = db.Stock_Archives
-const StockInfoTable = db.Stock_Info
 const StockCurrentTable = db.Stock_Current
 
 const getAllStocks = async (request, response) => {
     let stocks = await StockCurrentTable.findAll({})
-    //console.log(stocks)
     let returnArray = new Array();
 
     for(let stock of stocks)
@@ -16,7 +13,6 @@ const getAllStocks = async (request, response) => {
         })
     }
         
-
     response.status(200).send(returnArray)
 }  
 
@@ -31,8 +27,8 @@ const getStockGroup = async (request, response) => {
     
     for(let stock_symbol of array_of_stock_symbols){
             let stockInfo = await StockCurrentTable.findOne({where: {stock_symbol: stock_symbol}})
-            if(stockInfo.length == 0)
-                returnObject.errors.push({"stock_symbol-error": stock_symbol})
+            if(stockInfo == null)
+                returnObject.errors.push({"stock_symbol": stock_symbol})
             else{
                     returnObject.stocks.push({
                                         "stock_symbol": stockInfo.stock_symbol,
@@ -41,7 +37,6 @@ const getStockGroup = async (request, response) => {
             }
     }
     
-    console.log(returnObject)
     setTimeout(() => {
         if(returnObject.stocks.length == 1 && returnObject.errors.length == 0)
             response.status(200).send(returnObject.stocks[0])
