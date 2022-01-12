@@ -28,7 +28,7 @@ const getStockGroup = async (request, response) => {
     for(let stock_symbol of array_of_stock_symbols){
             let stockInfo = await StockCurrentTable.findOne({where: {stock_symbol: stock_symbol}})
             if(stockInfo == null)
-                returnObject.errors.push({"stock_symbol": stock_symbol})
+                returnObject.errors.push({"stock_symbol": stock_symbol, "stock_value": "" })
             else{
                     returnObject.stocks.push({
                                         "stock_symbol": stockInfo.stock_symbol,

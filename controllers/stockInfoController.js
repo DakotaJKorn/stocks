@@ -37,16 +37,25 @@ const getStockGroup = async (request, response) => {
     for(let stock_symbol of array_of_stock_symbols){
             let stockInfo = await StockInfoTable.findOne({where: {stock_symbol: stock_symbol}, include: [StockArchivesTable,StockCurrentTable]})
             if(stockInfo == null)
-                returnObject.errors.push({"stock_symbol": stock_symbol})
+                returnObject.errors.push({
+                                       "stock_symbol": stock_symbol,
+                                       "stock_name": "", 
+                                       "stock_value": "",
+                                       "stock_exchange": "",
+                                       "stock_sector": "",
+                                       "stock_industry": "", 
+                                       "stock_description": "",
+                                       "stock_archives": ""
+                                    })
             else{
                     returnObject.stocks.push({
                                        "stock_symbol": stockInfo.stock_symbol,
-                                       "stock_name":stockInfo.stock_name, 
+                                       "stock_name": stockInfo.stock_name, 
                                        "stock_value": stockInfo.stock_current,
                                        "stock_exchange":stockInfo.stock_exchange,
                                        "stock_sector": stockInfo.stock_sector,
-                                       "stock_industry":stockInfo.stock_industry, 
-                                       "stock_description":stockInfo.stock_description,
+                                       "stock_industry": stockInfo.stock_industry, 
+                                       "stock_description": stockInfo.stock_description,
                                        "stock_archives": stockInfo.stock_archives
                                     })
             }
