@@ -4,7 +4,7 @@ const StockInfoTable = db.Stock_Info
 const StockCurrentTable = db.Stock_Current
 
 const getAllStocks = async (request, response) => {
-    let stocks = await StockInfoTable.findAll({include: [StockArchivesTable,StockCurrentTable]})
+    let stocks = await StockInfoTable.findAll({logging: true, include: [{model:StockArchivesTable, attributes: ['stock_value', 'date'] },{model:StockCurrentTable,attributes: ['stock_value'] }]})
     let returnArray = new Array();
 
     for(let stock of stocks)
