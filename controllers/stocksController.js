@@ -1,4 +1,7 @@
 const docClient = require('../config/dynamoDBConfig').docClient;
+const db = require('../models/index')
+const StockTable = db.Stocks
+
 
 const getAllStocks = async (request, response) => {
     docClient.scan( { TableName:"Stocks" } , (err, data) => {

@@ -24,7 +24,7 @@ db.sequelize = sequelize
 
 // Creates a table called Stock_Archives in the db
 db.Stock_Archives = require('./stockArchiveModel')(sequelize, DataTypes)
-
+db.Stocks = require('./stockModel')(sequelize, DataTypes)
 // sync the db by running the model
 // "force: false" ensures that the table is not created again every time the program runs
 db.sequelize.sync({ force: false })
@@ -34,5 +34,8 @@ db.sequelize.sync({ force: false })
         console.log(`---------------------------------------`)
     })
     .catch((error) => console.log('Error syncing the DB to sequelize' + error))
+
+db.Stock_Archives.belongsTo(db.Stocks);
+db.Stocks.hasMany(db.Stock_Archives);
 
 module.exports = db
